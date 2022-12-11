@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  align-items: center;
+  padding: 16px 22px;
+  background: #ffffff;
+}
+
+.button--group {
+  display: flex;
+  gap: 20px;
+}
+
+.logo h6{
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.button--group__sign-in,
+.button--group__sign-up,
+.logo {
+  padding: 4px 8px;
+  font-size: 18px;
+  line-height: 28px;
+  vertical-align: middle;
+  text-align: center;
+  background: none;
+}
+
+.button--group__sign-in {
+  border: none;
+}
+.button--group__sign-up {
+  border: 0.5px solid #52C41A;
+  color: #52C41A;
+  border-radius: 3px;
+}
