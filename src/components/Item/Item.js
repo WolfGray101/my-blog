@@ -1,32 +1,53 @@
-import { Tag } from "antd";
 import classes from "./Item.module.scss";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 
-const Item = () => {
+const Item = ({ item }) => {
+
+  const createDateFn = (createOrUpdate) => {
+    if (createOrUpdate) {
+      const date = Date.parse(createOrUpdate);
+      return new Date(date).toDateString();
+    } else return null;
+  };
+
+  const createTagList = (tags) => {
+    return tags.map( el => (
+      <button className={classes["item--content__tag--group__tag"]}> {el}</button>
+    ))
+  }
+  const tagList = createTagList(item.tagList)
+  const createDate = createDateFn(item.createdAt);
+  const updateDate = createDateFn(item.updatedAt);
+  const imageURL = item.author.image;
+
   return (
     <div className={classes.item}>
       <div className={classes["item--content"]}>
-      <h5> Header content</h5>
-      <div className={classes['item--content__tag--group']}>
-      <button className={classes['item--content__tag--group__tag']}> Tag 1</button>
-      <button> Tag 2</button>
-      </div>
-      <div className={classes['item--content__text']}>
-
-      <span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-         Ut enim ad minim veniam, quis nostrud exercitation 
-        ullamco laboris  nisi ut aliquip ex ea commodo consequat. </span>
-      </div>
+        <h5>{item.title.slice(0, 25)}</h5>
+        <div className={classes["item--content__tag--group"]}>
+          {tagList}
+        </div>
+        <div className={classes["item--content__text"]}>
+          <span> {item.body} </span>
+        </div>
       </div>
 
       <div className={classes["item--avatar"]}>
         <div className={classes["item--avatar__author--avatar__info"]}>
-          <h6> Jhon Doe</h6>
-          <span className={classes['item--avatar__author--avatar__date']}> Date </span>
+          <h6> {item.author.username}</h6>
+          <p className={classes["item--avatar__author--avatar__date"]}>
+            {createDate}
+          </p>
+          <span className={classes["item--avatar__author--avatar__date"]}>
+            {updateDate}
+          </span>
         </div>
-        <div className={classes["item--avatar__author--avatar"]}>
-          avatar
-        </div>
+        <Avatar size={64} src={`${imageURL}`} icon={<UserOutlined />} />
+
+        {/* <div className={classes["item--avatar__author--avatar"]}>
+        <img className={classes['avatar-image']} src={`${imageURL}`}  alt='avatar'/> 
+      </div> */}
       </div>
     </div>
   );

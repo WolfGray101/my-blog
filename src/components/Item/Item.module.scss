@@ -41,7 +41,7 @@
   width: 25%;
   text-align: right;
   display: flex;
-  justify-content: end;
+  justify-content:flex-end;
   gap: 10px;
 
   &__author--avatar {
@@ -66,5 +66,8 @@
         font-weight: 400;
       }
     }
+  }
+  .avatar-image {
+    width: 100%;
   }
 }
