@@ -1,0 +1,17 @@
+.login--form {
+  width: 384px;
+  height: 384px;
+  margin: 20px auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 5px;
+  
+  .input { 
+    width: 100%;
+  }
+  h5 {
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 10px;
+  }
+}
