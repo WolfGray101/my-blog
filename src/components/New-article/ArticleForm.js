@@ -16,30 +16,26 @@ const schema = yup.object().shape({
   text: yup.string().required(),
 });
 
-const ArticleForm = (
- { titleForm,
+const ArticleForm = ({
+  titleForm,
   tagList,
   title,
   description,
   body,
-  onGetArticle}
-) => {
-
-
+  onGetArticle,
+}) => {
   const { articles } = useSelector((store) => {
     return store.articlesReducer;
   });
 
-if (articles) {
+  if (articles) {
     tagList = articles.tagList;
     title = articles.title;
     description = articles.description;
     body = articles.body;
   }
 
-
   const [tagAdded, setTags] = useState([...tagList]);
-  console.log(tagAdded);
 
   const {
     control,
@@ -96,7 +92,7 @@ if (articles) {
                 className={classes.addTag}
                 size="large"
                 onClick={() => {
-                  if (field.value) onBtnAdd(field);
+                  if (field.value) return onBtnAdd(field);
                 }}
                 status={errors.title && "error"}
               >
@@ -110,10 +106,8 @@ if (articles) {
   ));
 
   const onSubmit = (data) => {
-    console.log(data);
     const { title, description, text, ...tag } = data;
     const tagList = Object.values(tag);
-    console.log(tagList);
 
     onGetArticle({ title, description, body: text, tagList });
 
