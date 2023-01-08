@@ -145,6 +145,17 @@ export default class ServiceFile {
     console.log(res);
     return res;
   }
+
+  async editArticle(data = {}, slug = '', token = '') {
+    const res = await this.putResponce(
+      `articles/${slug}`,
+      { article: data },
+      {
+        headers: { Authorization: `Token ${token}` },
+      }
+    )
+    return res
+  }
 }
 
 //  async setUpdateUser(user, token) {

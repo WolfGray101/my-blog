@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import NewArticle from "../New-article";
 import { getArticle, clearArticle } from "../../store/actions/article-action";
 import { Spin } from "antd";
+import ServiceFile from "../../service/service-file";
+import ArticleForm from "../New-article/ArticleForm";
+
+
+const serviceFile = new ServiceFile ()
 
 const Edit = () => {
 
@@ -23,16 +28,18 @@ const Edit = () => {
     return store.articlesReducer;
   });
 
-  // const { title, description, text, tagList } = articles;
+  const navigate = useNavigate()
+
+  const onGetArticle = async (data) => {
+    await serviceFile.editArticle(data, id, token)
+    navigate('/')
+  }
 
   return articles ? (
-    <NewArticle
+    <ArticleForm
       titleForm="Edit an article"
-      // articles = {articles}
-      // title={title}
-      // description={description}
-      // text={text}
-      // tagList={tagList}
+      onGetArticle = {onGetArticle}
+     
     />
   ) : (
     <Spin />
