@@ -21,6 +21,7 @@ export default class ServiceFile {
   }
 
   async postResponce(url, ...options) {
+    
     try {
       const result = await axios.post(`${this.baseURL}${url}`, ...options);
       if (result.statusText !== "OK") {
@@ -131,6 +132,7 @@ export default class ServiceFile {
         headers: { Authorization: `Token ${token}` },
       }
     );
+    console.log(res);
     return res;
   }
 

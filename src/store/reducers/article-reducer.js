@@ -36,13 +36,13 @@ function articlesReducer(state = defaultState, action = {}) {
         currentPages: action.payload,
       };
     }
-    case "START_LOADING": {
-      return {
-        ...state,
-        loading: true,
-        error: false,
-      };
-    }
+    // case "START_LOADING": {
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     error: false,
+    //   };
+    // }
 
     default:
       return state;

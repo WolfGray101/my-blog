@@ -16,19 +16,20 @@ const ItemList = () => {
     (state) => state.getArticlesReducer
   );
   const [current, setCurrent] = useState(1); 
+  const { token } = useSelector((state) => state.createAcc)
 
 
-  const getArticlesList = (request) => (dispatch) => {
+  const getArticlesList = (request, token) => (dispatch) => {
     serviceFile
-      .getResponce(request)
+      .getResponce(request, token)
       .then((res) => dispatch(getArticles(res)))
       .catch(() => dispatch(loadError()));
   };
 
   useEffect(() => {
     const offset = current*10-10
-    dispatch(getArticlesList(`articles?limit=10&offset=${offset}`));
-  }, [dispatch, current ]);
+    dispatch(getArticlesList(`articles?limit=10&offset=${offset}`, token));
+  }, [dispatch, current, token]);
 
   const itemContent = (art) => {
     return art.map((el) => {
