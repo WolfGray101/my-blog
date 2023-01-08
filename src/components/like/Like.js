@@ -15,7 +15,6 @@ function Like({ favoritesCount, favorited, slug }) {
   const [count, setCount] = useState(favoritesCount)
   const { isLoginned, token } = useSelector((state) => state.createAcc)
   
-  console.log( isLoginned, token );
   useEffect(() => {
     setLike(favorited)
     setCount(favoritesCount)

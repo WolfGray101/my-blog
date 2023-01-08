@@ -14,14 +14,13 @@ const Article = () => {
   const { token } = useSelector((state) => {
     return state.createAcc;
   });
-  console.log(token);
   const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(getArticle(id, token));
     return () => dispatch(clearArticle());
-  }, [dispatch, id]);
+  }, [dispatch, id, token]);
 
   return articles ? (
     <div className={classes.container}>

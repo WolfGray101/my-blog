@@ -17,7 +17,7 @@ function App() {
       <BrowserRouter> 
       <Header />
         <Routes>
-            <Route index element={<ItemList />} />
+            <Route path="/" element={<ItemList />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="articles/:id" element={<Article />} />
 

@@ -1,17 +1,15 @@
 import React, { useEffect } from "react";
 import classes from "./Header.module.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "antd";
-import ServiceFile from "../../service/service-file";
 import { UserOutlined } from "@ant-design/icons";
 import { signIn, logOut } from "../../store/actions/auth-action";
 const Header = () => {
   const { username, image, isLoginned } = useSelector(
     (state) => state.createAcc
   );
-  // const navigate = useNavigate();
-  // const serviceFile = new ServiceFile();
+
   const dispatch = useDispatch();
 
   useEffect(() => {  

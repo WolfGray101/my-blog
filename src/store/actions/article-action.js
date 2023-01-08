@@ -16,10 +16,9 @@ export const getArticle = (slug, token) => (dispatch) => {
   serviceFile
     .getArticle(slug, token)
     .then((res) => {
-      console.log(res);
       dispatch(setArticle(res.article))
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {throw new Error(err)})
 }
 
 export const setArticle = (article) => ({ type: 'SET_ARTICLE', payload: article })

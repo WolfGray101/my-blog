@@ -14,10 +14,8 @@ export default class ServiceFile {
         throw new Error(response.status);
       }
       const result = await response.json();
-      console.log(result);
       return result;
     } catch (err) {
-      console.log(err);
       throw new Error(err);
     }
   }
@@ -28,10 +26,8 @@ export default class ServiceFile {
       if (result.statusText !== "OK") {
         throw new Error(result.status);
       }
-      console.log(result.data);
       return result.data;
     } catch (err) {
-      console.log(err.response);
       throw new Error(err.response.status);
     }
   }
@@ -42,10 +38,8 @@ export default class ServiceFile {
       if (result.statusText !== "OK") {
         throw new Error(result.status);
       }
-      console.log(result.data);
       return result.data;
     } catch (err) {
-      console.log(err);
       throw new Error(err.response);
     }
   }
@@ -58,6 +52,7 @@ export default class ServiceFile {
 
       return result.data;
     } catch (err) {
+      console.log(err);
       throw new Error(err.response.status);
     }
   }
@@ -72,7 +67,6 @@ export default class ServiceFile {
       },
     };
     const res = await this.postResponce("users", userdata);
-    console.log(res);
     return res;
   }
 
@@ -85,13 +79,11 @@ export default class ServiceFile {
       },
     };
     const res = await this.postResponce(`users/login`, userdata);
-    console.log(res);
     return res;
   }
 
   async getUser(token) {
     const res = await this.getResponce("user", token);
-    console.log(res);
     return res;
   }
 
@@ -124,12 +116,10 @@ export default class ServiceFile {
       `articles?limit=5&offset=${offset}`,
       token
     );
-    console.log(res);
     return res;
   }
   async getArticle(slug, token = null) {
     const res = await this.getResponce(`articles/${slug}`, token);
-    console.log(res);
     return res;
   }
 
@@ -148,6 +138,13 @@ export default class ServiceFile {
     const res = await this.deleteResponce(`articles/${slug}/favorite`, {
       headers: { Authorization: `Token ${token}` },
     });
+    return res;
+  }
+  async deleteArticle(slug, token) {
+    const res = await this.deleteResponce(`articles/${slug}`, {
+      headers: { Authorization: `Token ${token}` },
+    });
+    console.log(res);
     return res;
   }
 }

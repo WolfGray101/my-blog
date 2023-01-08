@@ -8,7 +8,6 @@ const defaultState = {
 };
 
 function articlesReducer(state = defaultState, action = {}) {
-  console.log(action.payload);
   switch (action.type) {
     case "SET_ARTICLE":
       return {

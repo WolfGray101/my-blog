@@ -32,6 +32,8 @@ const ItemList = () => {
 
   const itemContent = (art) => {
     return art.map((el) => {
+    console.log(el);
+
       const keyGenerator =
         Math.random() * 100 + Math.random() * 11 * Math.random() * 12;
       return <Item key={keyGenerator} item={el} />;
