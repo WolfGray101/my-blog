@@ -6,6 +6,9 @@ import store from "../../store";
 import { Provider } from "react-redux";
 import SignUp from "../sign-up";
 import Login from "../login";
+import Profile from "../Profile/Profile";
+import NewArticle from "../New-article/New-article";
+import Article from "../articleUI/article";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -16,7 +19,11 @@ function App() {
         <Routes>
             <Route index element={<ItemList />} />
             <Route path="sign-up" element={<SignUp />} />
+            <Route path="articles/:id" element={<Article />} />
+
             <Route path="sign-in" element={<Login />} />
+            <Route path="profile" element={< Profile />} />
+            <Route path="new-article" element={< NewArticle />} />
         </Routes>
     </BrowserRouter> 
  </Provider>

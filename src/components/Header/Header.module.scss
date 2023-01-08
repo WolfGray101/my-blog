@@ -9,20 +9,23 @@
     text-decoration: none;
     color: inherit;
   }
+  
+ h6 {
+  font-size: 18px;
+  line-height: 28px;
+}
 }
 
 .button--group {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
-.logo h6 {
-  font-size: 18px;
-  line-height: 28px;
-}
 
 .button--group__sign-in,
 .button--group__sign-up,
+.button--group__logout,
 .logo {
   padding: 4px 8px;
   font-size: 18px;
@@ -31,11 +34,19 @@
   text-align: center;
   background: none;
 }
+.button--group__logout {
+  background: none;
+  border-radius: 3px;
+  border: 0.5px solid #333;
+}
 .button--group__sign-in {
   border: none;
 }
-.button--group__sign-up {
+.button--group__sign-up,
+.button--group__create--article {
   border: 0.5px solid #52c41a;
   color: #52c41a;
   border-radius: 3px;
+  padding: 3px;
+  background: none;
 }

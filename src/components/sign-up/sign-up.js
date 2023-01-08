@@ -1,19 +1,41 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
-import classes from './sign-up.module.scss'
+import classes from "./sign-up.module.scss";
+import { Link,  useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/actions/auth-action";
+import ServiceFile from "../../service/service-file";
+// import { redirect } from "react-router-dom";
 
 
 const SignUp = () => {
+ const serviceFile = new ServiceFile()
+  const dispatch = useDispatch()
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+
+  const onFinish = (formValues) => {
+    
+    // console.log("Received values of form: ", formValues);
+    serviceFile.createAcc(formValues)
+    .then(res => {
+      console.log(res.user);
+      setTimeout(( ) => navigate('/sign-in'), 1000 )    
+        dispatch(signUp(res.user))
+      })
+    .catch(err => {
+      console.log(err.message);
+      if (err.message === '422') {
+        console.log("email or user is already exist")
+      }
+    })
   };
-
+const navigate = useNavigate()
   return (
-    <Form
-    labelCol ={ {offset:12}}
+    <>
+    
 
-      className={classes['sign-up--form']}
+    <Form
+      className={classes["form"]}
       form={form}
       layout={"vertical"}
       name="register"
@@ -21,18 +43,24 @@ const SignUp = () => {
       scrollToFirstError
     >
       <h5> Create a new account</h5>
-
-<Form.Item
-    labelCol ={ {span: 12, offset:12}}
+      <Form.Item
         name="nickname"
         label="Username"
         tooltip="What do you want others to call you?"
         rules={[
-          {
-            required: true,
-            message: "Please input your nickname!",
-            whitespace: true,
-          },
+          () => ({
+            validator(_,value) {
+              if ( value.length>3 && value.length<20) {
+                return Promise.resolve();
+              } else if (!value) {
+                return Promise.reject (
+                new Error("Please input Username!")
+                );
+              } else return Promise.reject(
+                new Error("Username must be longer than 3 and shortest than 20 letters")
+              );
+            },
+          }),
         ]}
       >
         <Input placeholder="Username" />
@@ -52,26 +80,35 @@ const SignUp = () => {
           },
         ]}
       >
-        <Input placeholder="Email address"/>
+        <Input placeholder="Email address" />
       </Form.Item>
 
       <Form.Item
         name="password"
         label="Password"
         rules={[
-          {
-            required: true,
-            message: "Please input your password!",
-          },
+          () => ({
+            validator(_,value) {
+              if ( value.length>6 && value.length<40) {
+                return Promise.resolve();
+              } else if (!value) {
+                return Promise.reject (
+                new Error("Please input your password!")
+                );
+              } else return Promise.reject(
+                new Error("Password must be longer than 6 and shortest than 40 letters")
+              );
+            },
+          }),
+         
         ]}
         hasFeedback
       >
-        <Input.Password placeholder="Password"/>
+        
+        <Input.Password placeholder="Password" />
       </Form.Item>
 
       <Form.Item
-    labelCol ={ {span: 12, offset:12}}
-
         name="confirm"
         label="Repeat Password"
         dependencies={["password"]}
@@ -93,10 +130,8 @@ const SignUp = () => {
           }),
         ]}
       >
-        <Input.Password placeholder="Password" className={classes.input}/>
+        <Input.Password placeholder="Password" className={classes.input} />
       </Form.Item>
-
-      
 
       <Form.Item
         name="agreement"
@@ -110,17 +145,21 @@ const SignUp = () => {
           },
         ]}
       >
-        <Checkbox>
-          I have read the <a href="/">agreement</a>
+        <Checkbox className={classes["check-box--content"]}>
+          I agree to the processing of my personal information
         </Checkbox>
       </Form.Item>
 
-      <Form.Item >
-        <Button type="primary" htmlType="submit">
-          Register
+      <Form.Item>
+        <Button className={classes.button} type="primary" htmlType="submit">
+          Create Account
         </Button>
+        <span className={classes.span}>
+          Already have an account? <Link to="/sign-in">Sign In</Link>{" "}
+        </span>
       </Form.Item>
     </Form>
+    </>
   );
 };
 export default SignUp;

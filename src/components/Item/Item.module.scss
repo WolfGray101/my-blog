@@ -1,73 +1,72 @@
-.item {
-  width: 940px;
-  min-height: 80px;
+.container {
   box-shadow: 0px 0px 15px 2px #333;
   border-radius: 3px;
   margin: 0 auto;
   background-color: #fff;
+  padding: .5rem 0;
+  width: 100%;
+  max-width: 940px;
+  min-height: 80px;
+}
+.item {
   display: flex;
-  padding: 15px 24px;
+  justify-content: space-between;
+  margin: 1rem 1.2rem;
 }
 
-.item--content {
-  width: 75%;
-  text-align: left;
-  display: flex;
+.col {
   flex-direction: column;
-  gap: 5px;
-
-  &__tag--group {
-    display: flex;
-    gap: 10px;
-
-    &__tag {
-      padding: 0 5px;
-    }
-  }
-  h5 {
-    line-height: 28px;
-    font-size: 20px;
-    font-weight: 400px;
-    color: #1890ff;
-  }
-  &__text {
-    line-height: 22px;
-    font-size: 12px;
-    font-weight: 400px;
-  }
+  display: flex;
+}
+.group {
+  display: flex;
+  gap: 0.5rem;
 }
 
-.item--avatar {
-  width: 25%;
-  text-align: right;
-  display: flex;
-  justify-content:flex-end;
-  gap: 10px;
+.title {
+  line-height: 28px;
+  font-size: 20px;
+  font-weight: 400px;
+  color: #1890ff;
+  margin-bottom: 0.5rem;
+}
+a {
+  text-decoration: none;
+}
+.text {
+  line-height: 22px;
+  font-size: 12px;
+  font-weight: 400px;
+}
+.description,
+.date,
+.tag {
+  line-height: 22px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.tag {
+  padding: 0 0.2rem;
+}
 
-  &__author--avatar {
-    width: 60px;
-    height: 60px;
-    border: 2px solid greenyellow;
-    border-radius: 50%;
-    align-self: flex-start;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 50px;
+.author {
+  line-height: 28px;
+  font-size: 18px;
+  font-weight: 400;
+}
 
-    &__date {
-      line-height: 22px;
-      font-size: 12px;
-      color: rgba(0, 0, 0, 0.5);
-    }
-    &__info {
-      h6 {
-        line-height: 28px;
-        font-size: 18px;
-        font-weight: 400;
-      }
-    }
-  }
-  .avatar-image {
-    width: 100%;
-  }
+.del, .edit {
+border-radius: .3rem;
+background: none;
+font-size: 14px;
+line-height: 22px;
+padding: 0 1rem;
+}
+.del {
+  color: #F5222D;
+  border: 1px solid #F5222D;
+}
+.edit {
+  color: #52C41A;
+  border: 1px solid #52C41A;
 }

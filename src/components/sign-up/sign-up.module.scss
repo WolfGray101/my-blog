@@ -1,17 +1,28 @@
-.sign-up--form {
+.form {
   width: 384px;
-  height: 599px;
-  margin: 20px auto;
+  margin: 60px auto;
   padding: 2rem;
   background: #fff;
   border-radius: 5px;
-  
-  .input { 
-    width: 100%;
-  }
+  text-align: center;
+
   h5 {
     font-size: 20px;
     line-height: 28px;
-    margin-bottom: 10px;
+    margin: 10px  0  20px 0;
+  }
+  .button {
+width:100%;
+color: #fff;
+  }
+  .check-box--content {
+    text-align: left;
+   color: #8C8C8C;
+   font-size: 14px;
+
+  }
+  .span {
+   color: #8C8C8C;
+   font-size: 12px;
   }
 }

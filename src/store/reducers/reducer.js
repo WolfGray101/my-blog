@@ -13,6 +13,7 @@ const defaultState = {
   // }
   ],
   articlesCount: 0,
+  loading: true
 }
 
 function getArticlesReducer(state = defaultState, action = {}) {
@@ -20,8 +21,9 @@ function getArticlesReducer(state = defaultState, action = {}) {
     case 'GET_ARTICLES':
       return {
         ...state,
-        articles: [...state.articles, ...action.payload.articles],
-        articlesCount: action.payload.articlesCount
+        articles: [ ...action.payload.articles],
+        articlesCount: action.payload.articlesCount,
+        loading: false
       }
 
     // case 'SET_SEARCH_ID':

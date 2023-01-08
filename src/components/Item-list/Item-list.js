@@ -4,13 +4,19 @@ import ServiceFile from "../../service/service-file";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArticles, loadError } from "../../store/actions/action";
-import { Pagination } from "antd";
+import { Pagination, Spin } from "antd";
 
 const serviceFile = new ServiceFile();
 
 const ItemList = () => {
+
   const dispatch = useDispatch();
-  const { articles, articlesCount } = useSelector((state) => state);
+
+  const { articles, articlesCount, loading } = useSelector(
+    (state) => state.getArticlesReducer
+  );
+  const [current, setCurrent] = useState(1); 
+
 
   const getArticlesList = (request) => (dispatch) => {
     serviceFile
@@ -20,8 +26,9 @@ const ItemList = () => {
   };
 
   useEffect(() => {
-    dispatch(getArticlesList("articles"));
-  }, [dispatch]);
+    const offset = current*10-10
+    dispatch(getArticlesList(`articles?limit=10&offset=${offset}`));
+  }, [dispatch, current ]);
 
   const itemContent = (art) => {
     return art.map((el) => {
@@ -32,26 +39,26 @@ const ItemList = () => {
   };
 
   const itemRender = itemContent(articles);
-
-  const [current, setCurrent] = useState(1);
-
   const onChange = (page) => {
-    console.log(page);
-    dispatch(getArticlesList(`articles/${page}`))
     setCurrent(page);
   };
 
+  const spinner = loading ? <Spin /> : null;
+  const pagination = !loading ? (
+    <Pagination
+      current={current}
+      onChange={onChange}
+      total={articlesCount}
+      pageSizeOptions={[20]}
+      defaultPageSize={20}
+      showSizeChanger={false}
+    />
+  ) : null;
   return (
     <div className={classes["item--list"]}>
+      {spinner}
       {itemRender}
-      <Pagination
-        current={current}
-        onChange={onChange}
-        total={articlesCount}
-        pageSizeOptions={[20]}
-        defaultPageSize={20}
-        showSizeChanger={false}
-      />
+      {pagination}
     </div>
   );
 };
