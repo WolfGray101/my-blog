@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
 import classes from "./New-article.module.scss";
-import { getArticles } from "../../store/actions/article-action";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Button } from "antd";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ServiceFile from "../../service/service-file";
 
 const { TextArea } = Input;
@@ -24,18 +23,33 @@ const schema = yup.object().shape({
 
 function NewArticle({
   titleForm,
+  // articles,
+  tagList,
   title,
   description,
-  text,
-  tagList
+  body
 }) {
+
+  const { articles } = useSelector((store) => {
+    return store.articlesReducer;
+  });
+
+  if (articles) {
+  tagList = articles.tagList;
+  title = articles.tagList;
+  description = articles.tagList;
+  body = articles.tagList
+  }
+  // const { title, description, body, tagList } = articles;
+
+
+console.log(articles);
 
   const { token } = useSelector((state) => state.createAcc)
   const [tagAdded, setTags] = useState([...tagList]);
   console.log(tagAdded);
 
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   
   const {
     control,
@@ -48,12 +62,11 @@ function NewArticle({
     defaultValues: {
       title: title,
       description: description,
-      text: text,
+      text: body,
     },
   });
   const onBtnAdd = (field) => {
     setTags((prevState) => {
-      console.log(prevState);
       return [...prevState, ""]
     })
   };
@@ -107,8 +120,7 @@ function NewArticle({
   ));
   const onGetArticle = async (data) => {
     await serviceFile.postCreateArticle(data, token)
-    await dispatch(getArticles())
-    await navigate('/')
+    navigate('/')
   }
   const onSubmit = (data) => {
     console.log(data);
@@ -135,6 +147,8 @@ function NewArticle({
               {...field}
               placeholder="Title"
               size="large"
+              defaultValue={title}
+
               status={errors.title && "error"}
             />
           )}
@@ -150,6 +164,8 @@ function NewArticle({
               {...field}
               placeholder="Short description"
               size="large"
+              defaultValue={description}
+
               status={errors.description && "error"}
             />
           )}
@@ -165,6 +181,8 @@ function NewArticle({
               {...field}
               rows={4}
               placeholder="Text"
+              defaultValue={body}
+
               status={errors.text && "error"}
             />
           )}
@@ -193,7 +211,6 @@ NewArticle.propTypes = {
   description: PropTypes.string,
   text: PropTypes.string,
   tagList: PropTypes.arrayOf(PropTypes.string),
-  // onGetArticle: PropTypes.func.isRequired,
 };
 
 export default NewArticle;

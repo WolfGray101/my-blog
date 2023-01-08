@@ -1,6 +1,6 @@
 import classes from "./Item.module.scss";
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar } from "antd";
+import { Avatar, Popconfirm } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import Like from "../like";
@@ -53,6 +53,8 @@ const Item = ({ item, id = null }) => {
       description={description}
       isValidEdition={isValidEdition}
       onDelete={onDelete}
+      item = {item}
+      slug= {slug}
     />
   ) : null;
   return (
@@ -93,14 +95,25 @@ const Item = ({ item, id = null }) => {
 
 export default Item;
 
-const ArticleDesc = ({ description, isValidEdition, onDelete }) => {
+const ArticleDesc = ({ description, isValidEdition,
+   onDelete, item, slug}) => {
   const btnGroup = isValidEdition ? (
     <div className={classes.group}>
-      <button className={classes.del} onClick={onDelete}>
+      <Popconfirm
+                title="Are you sure to delete this article?"
+                placement="right"
+                okText="Yes"
+                cancelText="No"
+                onConfirm={onDelete}
+              >
+      <button className={classes.del}>
         {" "}
         Delete
       </button>
+      </Popconfirm>
+      <Link to={'edit'} item={item} slug = {slug}>
       <button className={classes.edit}> Edit </button>
+      </Link>
     </div>
   ) : null;
   return (

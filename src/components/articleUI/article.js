@@ -8,6 +8,7 @@ import classes from "./article.module.scss";
 import { getArticle, clearArticle } from "../../store/actions/article-action";
 
 const Article = () => {
+  
   const { articles } = useSelector((store) => {
     return store.articlesReducer;
   });
@@ -22,13 +23,15 @@ const Article = () => {
     return () => dispatch(clearArticle());
   }, [dispatch, id, token]);
 
-  return articles ? (
+  const item = articles?  
+  <Item item={articles} id={id} /> :
+  <Spin  size='large' /> 
+
+  return  (
     <div className={classes.container}>
-      <Item item={articles} id={id} />
+      {item}
     </div>
-  ) : (
-    <Spin />
-  );
+  ) 
 };
 
 export default Article;

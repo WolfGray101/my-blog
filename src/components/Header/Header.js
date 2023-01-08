@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { signIn, logOut } from "../../store/actions/auth-action";
+
 const Header = () => {
   const { username, image, isLoginned } = useSelector(
     (state) => state.createAcc

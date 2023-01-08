@@ -21,7 +21,6 @@ export default class ServiceFile {
   }
 
   async postResponce(url, ...options) {
-    
     try {
       const result = await axios.post(`${this.baseURL}${url}`, ...options);
       if (result.statusText !== "OK") {
@@ -53,13 +52,11 @@ export default class ServiceFile {
 
       return result.data;
     } catch (err) {
-      console.log(err);
       throw new Error(err.response.status);
     }
   }
 
   async createAcc(userdata) {
-    console.log(userdata);
     userdata = {
       user: {
         username: userdata.nickname,
@@ -72,7 +69,6 @@ export default class ServiceFile {
   }
 
   async login(userdata) {
-    console.log(userdata);
     userdata = {
       user: {
         email: userdata.email,

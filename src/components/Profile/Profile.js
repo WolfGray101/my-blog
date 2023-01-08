@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {Input} from "antd";
+import { Input } from "antd";
 import classes from "./Profile.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,15 +19,11 @@ const schema = yup.object().shape({
   imgUrl: yup.string().url(),
 });
 
-
-
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, username, email } = useSelector((state) => {
-    console.log(state.createAcc);
-    return state.createAcc;
-  });
+  const { token, username, email } 
+  = useSelector((state) => state.createAcc);
 
   const {
     control,
@@ -36,20 +32,20 @@ const Profile = () => {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
-    mode: 'onBlur',
+    mode: "onBlur",
   });
 
   const onSubmit = (data) => {
-     const user = {
+    const user = {
       username: data.userName,
       email: data.email,
       password: data.newPassword,
       image: data.imgUrl,
-    }
-    console.log(data);
-    dispatch(updateUser(user, token))
-    reset()
-    navigate('/')
+    };
+    console.log(user);
+    dispatch(updateUser(user, token));
+    reset();
+    navigate("/");
   };
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

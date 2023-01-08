@@ -9,15 +9,13 @@ import { Pagination, Spin } from "antd";
 const serviceFile = new ServiceFile();
 
 const ItemList = () => {
-
   const dispatch = useDispatch();
 
   const { articles, articlesCount, loading } = useSelector(
     (state) => state.getArticlesReducer
   );
-  const [current, setCurrent] = useState(1); 
-  const { token } = useSelector((state) => state.createAcc)
-
+  const [current, setCurrent] = useState(1);
+  const { token } = useSelector((state) => state.createAcc);
 
   const getArticlesList = (request, token) => (dispatch) => {
     serviceFile
@@ -27,26 +25,25 @@ const ItemList = () => {
   };
 
   useEffect(() => {
-    const offset = current*10-10
+    const offset = current * 10 - 10;
     dispatch(getArticlesList(`articles?limit=10&offset=${offset}`, token));
   }, [dispatch, current, token]);
 
   const itemContent = (art) => {
     return art.map((el) => {
-    console.log(el);
-
       const keyGenerator =
         Math.random() * 100 + Math.random() * 11 * Math.random() * 12;
       return <Item key={keyGenerator} item={el} />;
     });
   };
 
-  const itemRender = itemContent(articles);
   const onChange = (page) => {
     setCurrent(page);
   };
 
-  const spinner = loading ? <Spin /> : null;
+  const itemRender = itemContent(articles);
+
+  const spinner = loading ? <Spin size='large'/> : null;
   const pagination = !loading ? (
     <Pagination
       current={current}
