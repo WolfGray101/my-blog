@@ -52,9 +52,10 @@ const ArticleForm = ({
     },
   });
   const onBtnAdd = (field) => {
-    setTags((prevState) => {
+    return field.value.trim() ? 
+    (setTags((prevState) => {
       return [...prevState, ""];
-    });
+    })) : null
   };
 
   const onBtnDelete = (elIndex) => {

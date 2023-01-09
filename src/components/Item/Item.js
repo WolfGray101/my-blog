@@ -12,7 +12,7 @@ const Item = ({ item, id = null }) => {
 
   const { username, token } = useSelector((state) => state.createAcc);
   const { slug, description, favoritesCount, favorited, author } = item;
-
+console.log(item);
   const navigate = useNavigate();
 
   const createDateFn = (createOrUpdate) => {
@@ -34,7 +34,7 @@ const Item = ({ item, id = null }) => {
     return tags.map((el) => {
       const keyGenerator =
         Math.random() * 100 + Math.random() * 11 * Math.random() * 12;
-      return el ? (
+      return el.trim() ? (
         <button className={classes.tag} key={keyGenerator}>
           {el}
         </button>
@@ -45,6 +45,7 @@ const Item = ({ item, id = null }) => {
   const tagList = createTagList(item.tagList);
   const createDate = createDateFn(item.createdAt);
   const updateDate = createDateFn(item.updatedAt);
+  const updateDateRender = (updateDate !== createDate) ? updateDate : null
   const imageURL = author.image;
   const isValidEdition = author.username === username;
 
@@ -79,7 +80,7 @@ const Item = ({ item, id = null }) => {
             <span className={classes.author}>{item.author.username}</span>
 
             <p className={classes.date}>{createDate}</p>
-            <span className={classes.date}>{updateDate}</span>
+            <span className={classes.date}>{updateDateRender}</span>
           </div>
           <Avatar size={64} src={`${imageURL}`} icon={<UserOutlined />} />
         </div>

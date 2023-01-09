@@ -15,6 +15,7 @@ const  NewArticle = () => {
 
   const onGetArticle = async (data) => {
     await serviceFile.postCreateArticle(data, token)
+    localStorage.setItem('current', 1)
     navigate('/')
   }
 

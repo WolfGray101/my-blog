@@ -14,7 +14,10 @@ const ItemList = () => {
   const { articles, articlesCount, loading } = useSelector(
     (state) => state.getArticlesReducer
   );
-  const [current, setCurrent] = useState(1);
+  const isCurrent = Boolean(localStorage.getItem('current'))
+  const currentP = isCurrent? localStorage.getItem('current') : 1
+  const [current, setCurrent] = useState(+currentP);
+  
   const { token } = useSelector((state) => state.createAcc);
 
   const getArticlesList = (request, token) => (dispatch) => {
@@ -38,6 +41,7 @@ const ItemList = () => {
   };
 
   const onChange = (page) => {
+    localStorage.setItem('current', page)
     setCurrent(page);
   };
 
